@@ -1,45 +1,51 @@
 "use client";
 
-import { Dispatch, Fragment, SetStateAction, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { EyeIcon, EyeSlashIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons/react/20/solid";
+import { EyeIcon, PencilSquareIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons/react/20/solid";
 
-export default function Menu({ onClick }: { onClick?: () => void; }) {
+export default function Menu({ togglePreview }: { togglePreview?: (toggle: boolean) => void; }) {
   const [open, setOpen] = useState(false);
   const [preview, setPreview] = useState(false);
 
-  const handleClick = () => {
-    setOpen(o => !o);
-    if (onClick) onClick();
-  };
+  useEffect(() => {
+    if (togglePreview) togglePreview(preview);
+  }, [preview, togglePreview]);
 
-  return (
-    <>
-      {/* Open Menu */}
+  function MenuButton() {
+    return (
       <button
         type="button"
-        onClick={handleClick}
-        className={`absolute top-5 right-0 rounded-tl-lg rounded-bl-lg inline-flex items-center border border-transparent bg-primary-full p-1 text-white shadow-sm hover:bg-primary-hover focus:outline-none${open ? " opacity-20" : ""}`}>
-        <ChevronDoubleLeftIcon className="m-1 h-5 w-5 pr-[1.5px]" aria-hidden="true" />
+        onClick={() => setOpen(o => !o)}
+        className="absolute top-5 right-0 z-10 rounded-tl-lg rounded-bl-lg inline-flex items-center border border-transparent bg-primary-full p-1 text-white shadow-sm hover:bg-primary-hover focus:outline-none">
+        {open ? <ChevronDoubleRightIcon className="m-1 h-5 w-5 pr-[1.5px]" aria-hidden="true" /> : <ChevronDoubleLeftIcon className="m-1 h-5 w-5 pr-[1.5px]" aria-hidden="true" />}
       </button>
-      {/* Preview */}
+    );
+  }
+
+  function PreviewButton() {
+    return (
       <button
         type="button"
         onClick={() => setPreview(p => !p)}
-        className={`absolute top-20 right-0 rounded-tl-lg rounded-bl-lg inline-flex items-center border border-transparent bg-gray-600 p-1 text-white shadow-sm hover:bg-gray-700 focus:outline-none${open ? " opacity-20" : ""}`}>
-        {preview ? <EyeSlashIcon className="m-1 h-5 w-5 pr-[1.5px]" aria-hidden="true" /> : <EyeIcon className="m-1 h-5 w-5 pr-[1.5px]" aria-hidden="true" />}
+        className="absolute top-20 right-0 z-10 rounded-tl-lg rounded-bl-lg inline-flex items-center border border-transparent bg-gray-600 p-1 text-white shadow-sm hover:bg-gray-700 focus:outline-none">
+        {preview ? <PencilSquareIcon className="m-1 h-5 w-5 pr-[1.5px]" aria-hidden="true" /> : <EyeIcon className="m-1 h-5 w-5 pr-[1.5px]" aria-hidden="true" />}
       </button>
+    );
+  }
+
+  return (
+    <>
+      {/* Buttons */}
+      <MenuButton />
+      <PreviewButton />
       {/* Side Menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => { }}>
           <Transition.Child
             as={Fragment}
             enter="ease-in-out duration-500"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
             leave="ease-in-out duration-500"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
           >
             <div />
           </Transition.Child>
@@ -58,23 +64,16 @@ export default function Menu({ onClick }: { onClick?: () => void; }) {
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-500"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-100"
                   leave="ease-in-out duration-500"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
                 >
                   <div className="absolute top-0 left-0 flex pt-4">
-                    <button
-                      type="button"
-                      onClick={() => setOpen(false)}
-                      className="absolute top-5 right-0 rounded-tl-lg rounded-bl-lg inline-flex items-center border border-transparent bg-primary-full p-1 text-white shadow-sm hover:bg-primary-hover focus:outline-none">
-                      <ChevronDoubleRightIcon className="m-1 h-5 w-5 pr-[1.5px]" aria-hidden="true" />
-                    </button>
+                    <MenuButton />
+                    <PreviewButton />
                   </div>
                 </Transition.Child>
                 <div className="h-full overflow-y-auto bg-gray-800 p-8 pt-2.5">
                   <div className="space-y-6 pb-16">
+                    {/* Title */}
                     <div>
                       <div className="mt-4 flex items-start justify-between">
                         <div className="font-medium">
@@ -87,7 +86,7 @@ export default function Menu({ onClick }: { onClick?: () => void; }) {
                         </div>
                       </div>
                     </div>
-                    {/* this is the place to add more stuff */}
+                    {/* Components */}
                     <div className="flex">
                       <button
                         type="button"

@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-border-muted: #373E47;
+}
 
 /* CodeMirror full screen */
 html,

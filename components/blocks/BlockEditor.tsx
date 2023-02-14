@@ -9,7 +9,7 @@ const uid = () => {
 };
 
 
-export default function Editor() {
+export default function BlockEditor() {
   const [blocks, setBlocks] = useState<StoredBlock[]>([]);
 
   const [added, setAdded] = useState<string | null>();

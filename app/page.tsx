@@ -1,9 +1,11 @@
-import Editor from "@/components/Editor";
+import MarkdownEditor from "@/components/markdown/MarkdownEditor";
+import Menu from "@/components/page/Menu";
 
 export default function Home() {
   return (
     <>
-      <Editor />
+      <MarkdownEditor />
+      <Menu />
     </>
   );
 }

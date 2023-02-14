@@ -1,8 +1,22 @@
 /** @type {import('tailwindcss').Config} */
+
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        background: "#272c35",
+        primary: {
+          full: "#c6535c",
+          hover: "#bf404a",
+        },
+      },
+      fontFamily: {
+        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/aspect-ratio")],
 };

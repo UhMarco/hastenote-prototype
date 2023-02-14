@@ -56,3 +56,8 @@ body,
   white-space: pre-wrap;
   word-break: normal;
 }
+
+/* Preview */
+.task-list-item {
+  list-style: none !important;
+}

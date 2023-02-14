@@ -88,3 +88,9 @@
   display: list-item;
   text-align: -webkit-match-parent;
 }
+
+.markdown-body input[type="checkbox"] {
+  margin: 0 .2em .25em -1.4em;
+  padding: 0;
+  border: none;
+}

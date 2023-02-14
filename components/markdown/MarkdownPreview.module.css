@@ -6,7 +6,8 @@
   font-size: 16px;
   line-height: 1.5;
   display: block;
-  overflow-y: scroll;
+  overflow-y: auto;
+  color: var(--color-fg-default);
 }
 
 .markdown-body > :first-child {
@@ -30,7 +31,56 @@
   border-bottom: 1px solid var(--color-border-muted);
 }
 
+.markdown-body h2 {
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.markdown-body h3 {
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-size: .85em;
+  color: var(--color-fg-muted);
+}
+
 .markdown-body p {
   margin-top: 0;
   margin-bottom: 16px;
+}
+
+.markdown-body a {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+.markdown-body code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: var(--color-neutral-muted);
+  border-radius: 6px;
+}
+
+.markdown-body ul {
+  padding-left: 2em;
+  margin-top: 0;
+  margin-bottom: 16px;
+  list-style-type: disc;
+}
+
+.markdown-body li {
+  display: list-item;
+  text-align: -webkit-match-parent;
 }

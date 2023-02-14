@@ -73,6 +73,10 @@
   border-radius: 6px;
 }
 
+.markdown-body #code-block:first-child {
+  padding: 0 !important;
+}
+
 .markdown-body ul {
   padding-left: 2em;
   margin-top: 0;

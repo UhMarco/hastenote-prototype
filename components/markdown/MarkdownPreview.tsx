@@ -19,12 +19,13 @@ export default function MarkdownPreview({ content = "" }: { content?: string; })
         components={{
           code({ node, inline, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
-            return !inline && match ? (
+            return !inline ? (
               <SyntaxHighlighter
-                language={match[1]}
+                language={match ? match[1] : ""}
                 PreTag="div"
                 // @ts-ignore
                 style={codeTheme}
+                CodeTag="div"
                 {...props}
               >{String(children).replace(/\n$/, "")}</SyntaxHighlighter>
             ) : (

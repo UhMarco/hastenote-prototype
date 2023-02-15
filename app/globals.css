@@ -10,6 +10,19 @@
   --color-fg-muted: #768390;
 }
 
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-neutral-muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2b3138;
+}
+
 /* CodeMirror full screen */
 html,
 body,

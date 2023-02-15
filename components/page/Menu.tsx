@@ -1,10 +1,11 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Transition } from "@headlessui/react";
 import { EyeIcon, PencilSquareIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons/react/20/solid";
+import Image from "next/image";
 
-export default function Menu({ onUpload, uploadError, togglePreview }: { onUpload: () => void, uploadError?: boolean, togglePreview?: (toggle: boolean) => void; }) {
+export default function Menu({ onUpload, uploading, uploadError, togglePreview }: { onUpload: () => void, uploading?: boolean, uploadError?: boolean, togglePreview?: (toggle: boolean) => void; }) {
   const [open, setOpen] = useState(false);
   const [preview, setPreview] = useState(false);
 
@@ -35,22 +36,14 @@ export default function Menu({ onUpload, uploadError, togglePreview }: { onUploa
   }
 
   return (
-    <>
+    <div className="fixed top-0 right-0 z-10">
       {/* Buttons */}
       <MenuButton />
       <PreviewButton />
       {/* Side Menu */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => null}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-in-out duration-500"
-            leave="ease-in-out duration-500"
-          >
-            <div className="hidden -z-10" />
-          </Transition.Child>
-
-          <div className="fixed inset-y-0 right-0 flex max-w-full pl-10">
+        <div className="relative z-10">
+          <div className="fixed inset-y-0 right-0 flex max-w-full">
             <Transition.Child
               as={Fragment}
               enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -60,7 +53,7 @@ export default function Menu({ onUpload, uploadError, togglePreview }: { onUploa
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <Dialog.Panel className="pointer-events-auto relative w-96">
+              <div className="pointer-events-auto relative w-96">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-500"
@@ -71,6 +64,7 @@ export default function Menu({ onUpload, uploadError, togglePreview }: { onUploa
                     <PreviewButton />
                   </div>
                 </Transition.Child>
+
                 <div className="h-full overflow-y-auto bg-gray-800 p-8 pt-2.5">
                   <div className="space-y-6 pb-16">
                     {/* Title */}
@@ -83,14 +77,6 @@ export default function Menu({ onUpload, uploadError, togglePreview }: { onUploa
                           <h3 className="text-sm text-gray-300">
                             This app is still <strong className="text-red-400">under development</strong> and is currently acting as a proof of concept.
                           </h3>
-                          <h3 className="text-sm text-red-400 flex mt-3">
-                            <div className="-mt-[1.5px] pr-1">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                              </svg>
-                            </div>
-                            Your notes are likely to be deleted.
-                          </h3>
                         </div>
                       </div>
                     </div>
@@ -99,8 +85,17 @@ export default function Menu({ onUpload, uploadError, togglePreview }: { onUploa
                       <button
                         type="button"
                         onClick={() => onUpload()}
-                        className="flex-1 rounded-md border border-transparent bg-primary-full py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-hover focus:outline-none"
+                        className="flex-1 flex justify-center rounded-md border border-transparent bg-primary-full py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-hover focus:outline-none"
                       >
+
+                        {uploading && <svg className="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path className="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                          </path>
+                        </svg>}
+
                         Upload
                       </button>
                       {/* <button
@@ -113,20 +108,27 @@ export default function Menu({ onUpload, uploadError, togglePreview }: { onUploa
                     {uploadError && <h3 className="text-sm text-red-400 mt-3">Something went wrong, please try again later...</h3>}
                     <h3 className="text-sm text-gray-300">
                       <strong>Known issues:</strong><br />
-                      - There is no visible loading state on uploading.<br />
-                      - While this menu is open, users are occasionally unable to use the editor.<br />
                       - After this menu has closed, a &quot;ghost&quot; blocking the editor is left behind.<br />
-                      - Not all GFM features are styled.<br />
-                      - Upload error messages aren&apos;t properly displayed.<br />
-                      - Default 404 page.<br />
+                      - No menu when viewing saved notes.<br />
+                      <br />
+                      <strong>Coming soon:</strong><br />
+                      - Accounts<br />
+                      - Managing and editing notes<br />
+                      - Collaboration<br />
                     </h3>
                   </div>
+                  {/* Footer */}
+                  <footer className="absolute right-5 bottom-5">
+                    <a href="https://github.com/UhMarco/hastenote">
+                      <Image src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="View on GitHub" width="24" height="24" />
+                    </a>
+                  </footer>
                 </div>
-              </Dialog.Panel>
+              </div>
             </Transition.Child>
           </div>
-        </Dialog>
+        </div>
       </Transition.Root>
-    </>
+    </div>
   );
 }

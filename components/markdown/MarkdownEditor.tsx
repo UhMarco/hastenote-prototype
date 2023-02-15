@@ -40,15 +40,17 @@ export default function MarkdownEditor() {
       },
       body: JSON.stringify(content)
     }).then(response => {
-      if (response.status === 200) response.json().then(data => router.push(data.slug));
+      if (response.status === 200) response.json().then(data => {
+        setUploading(false);
+        router.push(data.slug);
+      });
       else setUploadError(true);
-      setUploading(false);
     });
   };
 
   return (
     <>
-      <Menu onUpload={handleUpload} togglePreview={togglePreview} />
+      <Menu onUpload={handleUpload} uploading={uploading} uploadError={uploadError} togglePreview={togglePreview} />
       {/* Editor */}
       {!preview
         ? // Editor

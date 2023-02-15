@@ -12,6 +12,17 @@ module.exports = {
           full: "#c6535c",
           hover: "#bf404a",
         },
+        fg: {
+          default: "#c9d1d9",
+          muted: "#768390",
+        },
+        neutral: {
+          muted: "#6e768166",
+        },
+        border: {
+          muted: "#373E47",
+        },
+        link: "#",
       },
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],

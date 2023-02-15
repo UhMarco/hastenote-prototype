@@ -1,28 +1,24 @@
+import { notFound } from "next/navigation";
 import MarkdownPreview from "@/components/markdown/MarkdownPreview";
 
-async function getContent(slug: string): Promise<string> {
-  const response = await fetch(`${process.env.BASE_FETCH_URL}/api/notes/get/${slug}`, {
+async function getContent(slug: string) {
+  const res = await fetch(`${process.env.BASE_FETCH_URL}/api/notes/get/${slug}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-    }
+    },
+    cache: "no-store"
   });
-  switch (response.status) {
-    case 200:
-      const data = await response.json();
-      return data.content;
-    case 404:
-      // Redirect to 404
-      return "";
-  }
-  // Redirect to something went wrong
-  return "# Something went wrong!";
+  const data = await res.json();
+  return data?.content as string;
 }
 
 export default async function NotePage({ params }: any) {
   const content = await getContent(params.slug);
 
+  if (!content) notFound();
+
   return (
-    <MarkdownPreview content={content || "# Something went wrong..."} />
+    <MarkdownPreview content={content} />
   );
 }

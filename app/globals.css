@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 :root {
+  --color-border-default: #444c56;
   --color-border-muted: #373E47;
   --color-link: #58A6ff;
-  --color-neutral-muted: rgba(110, 118, 129, 0.4);
+  --color-neutral-muted: #6e768166;
   --color-fg-default: #c9d1d9;
   --color-fg-muted: #768390;
 }
@@ -71,6 +72,27 @@ body,
 }
 
 /* Preview */
+/* Needs to go in global because of Next issue using modules and client components. */
 .task-list-item {
   list-style: none !important;
+}
+
+.footnotes {
+  font-size: 12px;
+  color: var(--color-fg-muted);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.footnotes ol {
+  padding-left: 16px;
+}
+
+.footnotes li > p {
+  margin-top: 16px;
+}
+
+blockquote {
+  padding: 0 1em;
+  color: var(--color-fg-muted);
+  border-left: .25em solid var(--color-border-default);
 }

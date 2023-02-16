@@ -3,7 +3,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { EyeIcon, PencilSquareIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons/react/20/solid";
-import Image from "next/image";
 
 export default function Menu({ onUpload, uploading, uploadError, togglePreview }: { onUpload: () => void, uploading?: boolean, uploadError?: boolean, togglePreview?: (toggle: boolean) => void; }) {
   const [open, setOpen] = useState(false);

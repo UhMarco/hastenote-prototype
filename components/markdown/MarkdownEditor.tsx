@@ -40,11 +40,11 @@ export default function MarkdownEditor() {
       },
       body: JSON.stringify(content)
     }).then(response => {
-      if (response.status === 200) response.json().then(data => {
+      if (response.status === 200) response.json().then(data => router.push(data.slug));
+      else {
         setUploading(false);
-        router.push(data.slug);
-      });
-      else setUploadError(true);
+        setUploadError(true);
+      };
     });
   };
 

@@ -15,7 +15,6 @@ export default function MarkdownEditor() {
   const router = useRouter();
 
   const [uploading, setUploading] = useState(false);
-  // TODO: Sort displaying and error.
   const [uploadError, setUploadError] = useState(false);
 
   const [content, setContent] = useState("");

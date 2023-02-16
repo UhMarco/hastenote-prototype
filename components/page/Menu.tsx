@@ -3,6 +3,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { EyeIcon, PencilSquareIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons/react/20/solid";
+import { supabase } from "@/utils/client";
 
 export default function Menu({ onUpload, uploading, uploadError, togglePreview }: { onUpload: () => void, uploading?: boolean, uploadError?: boolean, togglePreview?: (toggle: boolean) => void; }) {
   const [open, setOpen] = useState(false);
@@ -97,12 +98,28 @@ export default function Menu({ onUpload, uploading, uploadError, togglePreview }
 
                         Upload
                       </button>
-                      {/* <button
+                      <button
                         type="button"
-                        className="ml-3 flex-1 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none"
+                        onClick={() => {
+                          fetch("/api/auth/register", {
+                            method: "POST",
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                              email: "marco.wyatt@rocketmail.com",
+                              password: "password",
+                              username: "marco"
+                            })
+                          }).then(async res => {
+                            console.log(res);
+                            console.log(await res.json());
+                          });
+                        }}
+                        className="ml-3 flex-1 rounded-md border border-gray-300 bg-slate-100 py-2 px-4 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none"
                       >
                         Sign in
-                      </button> */}
+                      </button>
                     </div>
                     {uploadError && <h3 className="text-sm text-red-400 mt-3">Something went wrong, please try again later...</h3>}
                     <h3 className="text-sm text-gray-300">

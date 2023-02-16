@@ -117,12 +117,6 @@ export default function Menu({ onUpload, uploading, uploadError, togglePreview }
                       - Collaboration<br />
                     </h3>
                   </div>
-                  {/* Footer */}
-                  <footer className="absolute right-5 bottom-5">
-                    <a href="https://github.com/UhMarco/hastenote">
-                      <Image src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="View on GitHub" width="24" height="24" />
-                    </a>
-                  </footer>
                 </div>
               </div>
             </Transition.Child>

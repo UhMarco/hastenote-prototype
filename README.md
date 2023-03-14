@@ -5,6 +5,7 @@ Create and share notes using markdown.
 Uses:
 - React
 - Next.js 13
+- Tailwind
 - Supabase
 - Hosted by Vercel
 
